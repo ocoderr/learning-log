@@ -117,6 +117,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
+
 LOGIN_URL = '/users/login/'
 
 BOOTSTRAP3 = {
