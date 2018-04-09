@@ -21,10 +21,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'hbh&-@i#l($s2_!t9n9#ezf#b)4tf@x$l_dhfw_r9+)o!w06oi'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+if os.getcwd() == '/roo/mysite/learning-log':
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = False
 
-ALLOWED_HOSTS = ['198.177.126.91']
+    ALLOWED_HOSTS = ['198.177.126.91']
+else:
+    DEBUG = True
+
+    ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -56,7 +61,7 @@ ROOT_URLCONF = 'leanrning_log.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'leanrning_log/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

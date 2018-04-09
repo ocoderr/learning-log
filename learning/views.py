@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse,get_object_or_404
 from django.http import HttpResponseRedirect,Http404
 from django.contrib.auth.decorators import login_required
 from .models import Topic, Entry
@@ -20,7 +20,7 @@ def topics(request):
 
 @login_required
 def topic(request, topic_id):
-    topic = Topic.objects.get(id=topic_id)
+    topic = get_object_or_404(Topic,id=topic_id)
     if topic.owner != request.user:
         raise Http404
     entries = topic.entry_set.order_by('-date_added')
@@ -47,8 +47,7 @@ def new_topic(request):
 
 @login_required
 def new_entry(request, topic_id):
-    topic = Topic.objects.get(id=topic_id)
-
+    topic = get_object_or_404(Topic, id=topic_id)
     if request.method != 'POST':
         form = EntryForm()
     else:
@@ -65,7 +64,7 @@ def new_entry(request, topic_id):
 
 @login_required
 def edit_entry(request, entry_id):
-    entry = Entry.objects.get(id=entry_id)
+    entry = get_object_or_404(Entry, id=entry_id)
     topic = entry.topic
     if topic.owner != request.user:
         raise Http404
